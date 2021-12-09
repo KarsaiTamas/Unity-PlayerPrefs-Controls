@@ -8,3 +8,4 @@
 <br>After that drag and drop every button which has ControlUISetter on, into the GetControls GameObject's inspector UISetters, so it can handle the scripts</br>
 <br>You don't have to make these buttons into GetConrols children. It just needs the scripts from the buttons.</br>
 <br>For GetControls you can make 1 button to reset the key bindings, which you can use ResetControls for it.</br>
+<br>example of checking 1 of these controls: if(Input.GetKey(Controlls.keys["Up"])){do stuff} </br>
