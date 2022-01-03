@@ -9,7 +9,7 @@ public class ControlUISetter : MonoBehaviour
     public Button b;
     public Text text;
     public GameObject errorMessage;
-    public bool isActive =false;
+    bool isActive =false;
     private void Start()
     {
         b.onClick.AddListener(() => { ChangeActiveState(); });
