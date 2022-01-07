@@ -27,6 +27,11 @@ public class GetControls : MonoBehaviour
         {
 
             item.text.text = Controls.keys[item.control].ToString();
+            if (Controls.keys[item.control].ToString().Equals("Return"))
+            {
+                item.text.text = "Enter";
+
+            }
             item.errorMessage.SetActive(false);
         }
     }
