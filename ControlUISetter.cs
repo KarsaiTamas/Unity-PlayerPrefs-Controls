@@ -57,6 +57,10 @@ public class ControlUISetter : MonoBehaviour
             PlayerPrefs.SetInt(control,(int)key);
             Controls.keys[control] = key;
             text.text = key.ToString();
+            if (text.text.Equals("Return"))
+            {
+                text.text = "Enter";
+            }
             isActive = false;
             enabled = isActive;
             b.interactable = !isActive;
