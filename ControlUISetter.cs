@@ -30,20 +30,39 @@ public class ControlUISetter : MonoBehaviour
         if (Input.anyKey)
         {
             Event e = Event.current;
-            if (Controlls.keys[control]==e.keyCode)
+            KeyCode key = e.keyCode;
+            //This is for all mouse buttons
+            //for some reason Event can't get every mouse button
+            //also it doesn't even know when I click with the mouse
+            //it recognizes it as an event but not as a mouse event
+            for (int i = (int)KeyCode.Mouse0; i <= (int)KeyCode.Mouse6; i++)
+            {
+                if (Input.GetKey((KeyCode)i))
+                {
+                    Debug.Log(i);
+                    key = (KeyCode)i;
+                    break;
+                }
+            } 
+             
+            if (Controls.keys[control]== key)
             {
                 isActive = false;
                 b.interactable = !isActive;
                 enabled = isActive;
                 return;
             }
-            errorMessage.SetActive(Controlls.keys.ContainsValue(e.keyCode));
-            PlayerPrefs.SetInt(control,(int) e.keyCode);
-            Controlls.keys[control] = e.keyCode;
-            text.text = e.keyCode.ToString();
+            
+            errorMessage.SetActive(Controls.keys.ContainsValue(key));
+            PlayerPrefs.SetInt(control,(int)key);
+            Controls.keys[control] = key;
+            text.text = key.ToString();
             isActive = false;
             enabled = isActive;
             b.interactable = !isActive;
+
+           
+
         }
         
     }
