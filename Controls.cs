@@ -1,44 +1,78 @@
 using System.Collections.Generic;
 using UnityEngine;
-
-public static class Controls
+[System.Serializable]
+public enum ControlKey
 {
-    //You set up your default keycodes here 
-     static KeyCode Up = KeyCode.W;
-     static KeyCode Down = KeyCode.S;
-     static KeyCode Left = KeyCode.A;
-     static KeyCode Right = KeyCode.D;
-     static KeyCode Run = KeyCode.LeftShift;
-     static KeyCode Roll = KeyCode.Space;
-     static KeyCode Interact = KeyCode.F;
-     static KeyCode PrimaryAttack = KeyCode.Mouse0;
+    Up,
+    Down,
+    Left,
+    Right,
+    Interact
+}
 
-    public static Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
-    //Add into the Dictionary your keycodes
-    public static void ControlsStart()
+[System.Serializable]
+public class KeyHolder
+{
+    public ControlKey keyName;
+    public KeyCode keyBinding;
+
+}
+public class Controls: MonoBehaviour
+{
+    //You need this to do UI interactions
+    [HideInInspector]
+    public static List<ControlUI> uISetters = new List<ControlUI>();
+    public Transform uiControlsParent;
+    public List<KeyHolder> defaultKeys;
+    public ControlUI controlUIPrefab;
+
+    public static Dictionary<ControlKey, KeyCode> keys = new Dictionary<ControlKey, KeyCode>();
+
+    void Start()
     {
-        keys.Add("Up", Up);
-        keys.Add("Down", Down);
-        keys.Add("Left", Left);
-        keys.Add("Right", Right);
-        keys.Add("Roll", Roll);
-        keys.Add("Run", Run);
-        keys.Add("Interact", Interact);
-        keys.Add("PrimaryAttack", PrimaryAttack);
+        Setup();
     }
-    //Maybe this could be done better
-    //But here we just reset the keys in the Dictionary
-    //and save it in PlayerPrefs
-    public static void ResetToDefault()
+    private void Setup()
     {
-        keys["Up"]= Up;
-        keys["Down"]= Down;
-        keys["Left"]= Left;
-        keys["Right"]= Right;
-        keys["Run"]= Run;
-        keys["Interact"]= Interact;
-        keys["PrimaryAttack"]= PrimaryAttack;
-        foreach (var item in keys) PlayerPrefs.SetInt(item.Key,(int) item.Value);        
-        
+        foreach (var item in defaultKeys)
+        {
+            keys.Add(item.keyName, (KeyCode)PlayerPrefs.GetInt(item.keyName.ToString(), (int)item.keyBinding));
+            var conUI=  Instantiate(controlUIPrefab, uiControlsParent);
+            conUI.KeyBoundtext.text = keys[item.keyName].ToString().Equals("Return")? 
+                "Enter": keys[item.keyName].ToString();
+            conUI.KeyNametext.text = item.keyName.ToString();
+            conUI.control = item.keyName;
+            uISetters.Add(conUI);
+        }
     }
+    public void ResetControls()
+    { 
+        keys.Clear();
+        foreach (var item in defaultKeys)
+        {
+            keys.Add(item.keyName, item.keyBinding);
+        }
+        foreach (var item in keys) PlayerPrefs.SetInt(item.Key.ToString(), (int)item.Value);
+
+        foreach (var item in uISetters)
+        {
+            item.KeyBoundtext.text = keys[item.control].ToString().Equals("Return") ?
+                "Enter" : keys[item.control].ToString();
+            item.errorMessage.SetActive(false);
+        }
+
+    } 
+    public static void FlagDublicates()
+    {
+        foreach (var item in uISetters)
+        {
+            int i = 0;
+            foreach (var item2 in keys)
+            {
+                if (item2.Value==keys[item.control]) i++;
+                item.errorMessage.SetActive(i > 1);
+            }
+        }
+    }
+    
 }
