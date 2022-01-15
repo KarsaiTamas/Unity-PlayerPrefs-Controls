@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ControlUISetter : MonoBehaviour
+public class ControlUI : MonoBehaviour
 {
-    public string control;
-    public Button b;
-    public Text text;
+    public ControlKey control;
+    public Button button;
+    public Text KeyBoundtext;
+    public Text KeyNametext;
     public GameObject errorMessage;
-    bool isActive =false;
+    bool isActive = false;
     private void Start()
     {
-        b.onClick.AddListener(() => { ChangeActiveState(); });
+
+        button.onClick.AddListener(() => { ChangeActiveState(); });
         enabled = false;
 
     }
@@ -20,9 +22,9 @@ public class ControlUISetter : MonoBehaviour
     {
         isActive = !isActive;
         enabled = isActive;
-        b.interactable = !isActive;
+        button.interactable = !isActive;
     }
-    
+
     private void OnGUI()
     {
         if (!isActive) return;
@@ -43,31 +45,27 @@ public class ControlUISetter : MonoBehaviour
                     key = (KeyCode)i;
                     break;
                 }
-            } 
-             
-            if (Controls.keys[control]== key)
+            }
+
+            if (Controls.keys[control] == key)
             {
                 isActive = false;
-                b.interactable = !isActive;
+                button.interactable = !isActive;
                 enabled = isActive;
                 return;
             }
             
-            errorMessage.SetActive(Controls.keys.ContainsValue(key));
-            PlayerPrefs.SetInt(control,(int)key);
+            PlayerPrefs.SetInt(control.ToString(), (int)key);
             Controls.keys[control] = key;
-            text.text = key.ToString();
-            if (text.text.Equals("Return"))
-            {
-                text.text = "Enter";
-            }
+            Controls.FlagDublicates();
+            KeyBoundtext.text = key.ToString().Equals("Return")? "Enter":key.ToString();
             isActive = false;
             enabled = isActive;
-            b.interactable = !isActive;
+            button.interactable = !isActive;
 
-           
+
 
         }
-        
+
     }
 }
