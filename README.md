@@ -1,12 +1,14 @@
 # Unity-PlayerPrefs-Controls
 <br>Flexible and extendable controls setup.</br>
-<br>Just put GetControls.cs onto a GameObject.</br>
-<br>You need to have as many GameObjects with ControlUISetter.cs on them for every key binding you have.</br>
-<br>Set every control string in the ControlUISetter to the same value as you set them in the Controls class and inside the ControlsStart function</br>
-<br>f.e if you have keys.Add("Up", Up); in the Controls class' ControlsStart function than make a GameObject put a ControlUISetter onto it and in the Inspector change control string to: Up</br>
-<br>It's case and white space sensitive.</br>
-<br>After that drag and drop every GameObject which has ControlUISetter on it, into the GetControls GameObject's inspector UISetters, so it can handle set the starting values to the Contol keys from the player prefs, and update the UI text for the keys</br>
-<br>You don't have to make these buttons into GetConrols children. It just needs the scripts from the GameObjects.</br>
-<br>For GetControls you can make 1 button to reset the key bindings, which you can use ResetControls for it.</br>
-<br>example of checking 1 of these controls: if(Input.GetKey(Controlls.keys["Up"])){do stuff} </br>
-<br>For all of this to work you need a button, which activates the key checking process, a text which writes out what is this button for, and you use the text inside the button to write out which key the player assigned to it.</br>
+<br>Just put Controls onto a GameObject.</br>
+<br>Drag and drop the gameobject into the Controls Inspector  "Ui Controls Parent" which you want to contain the key binding controls.</br>
+<br>Open up the Controls script and on the top you can find the ControlKey enum. You can put here any number of control actions which you need f.e. MoveRight.</br>
+<br>Than in the Controls Inspector hit the "Default Keys" drop down and you can just add in every one of your keybindings. You have to open up the elements as well.</br>
+<br>Than make a new gameObject inside a canvas. Put ControlUI onto it, than you going to need 1 button, 3 texts in this</br>
+<br>Key Boundtext going to display your pressed key.</br>
+<br>Key Nametext going to display your key press action name.</br>
+<br>Error Message going to display an error of your choosing. It just enables the gameobject if you have key conflicts.</br>
+<br>In Controls you have a script called ResetControls. It will reset your controls to the default which you set in your Controls GameObject</br>
+
+
+
