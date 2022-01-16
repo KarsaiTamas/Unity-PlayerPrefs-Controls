@@ -58,7 +58,7 @@ public class ControlUI : MonoBehaviour
             PlayerPrefs.SetInt(control.ToString(), (int)key);
             Controls.keys[control] = key;
             Controls.FlagDublicates();
-            KeyBoundtext.text = key.ToString().Equals("Return")? "Enter":key.ToString();
+            KeyBoundText.text = key.ToString().Equals("Return")? "Enter":key.ToString();
             isActive = false;
             enabled = isActive;
             button.interactable = !isActive;
