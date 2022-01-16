@@ -15,7 +15,12 @@ public class KeyHolder
 {
     public ControlKey keyName;
     public KeyCode keyBinding;
-
+    
+    public KeyHolder(ControlKey keyName, KeyCode keyBinding)
+    {
+        this.keyName = keyName;
+        this.keyBinding = keyBinding;
+    }
 }
 public class Controls: MonoBehaviour
 {
