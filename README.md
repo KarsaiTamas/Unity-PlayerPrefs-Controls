@@ -11,5 +11,6 @@
 <br>Error Message going to display an error of your choosing. It just enables the gameobject if you have key conflicts.</br>
 <br>In Controls you have a script called ResetControls. It will reset your controls to the default which you set in your Controls GameObject</br>
 
+<br>UseCase f.e: if(Input.GetKey(Controls.keys[ControlKey.Up])){ print("you're hitting the Up key"); }</br>
 
 
