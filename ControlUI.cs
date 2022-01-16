@@ -7,8 +7,8 @@ public class ControlUI : MonoBehaviour
 {
     public ControlKey control;
     public Button button;
-    public Text KeyBoundtext;
-    public Text KeyNametext;
+    public Text KeyBoundText;
+    public Text KeyNameText;
     public GameObject errorMessage;
     bool isActive = false;
     private void Start()
