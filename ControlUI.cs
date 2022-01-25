@@ -7,9 +7,9 @@ public class ControlUI : MonoBehaviour
 {
     public ControlKey control;
     public Button button;
-    public Text KeyBoundText;
-    public Text KeyNameText;
-    public GameObject errorMessage;
+    public Text KeyBoundtext;
+    public Text KeyNametext;
+    public Text errorMessage;
     bool isActive = false;
     private void Start()
     {
@@ -58,7 +58,7 @@ public class ControlUI : MonoBehaviour
             PlayerPrefs.SetInt(control.ToString(), (int)key);
             Controls.keys[control] = key;
             Controls.FlagDublicates();
-            KeyBoundText.text = key.ToString().Equals("Return")? "Enter":key.ToString();
+            KeyBoundtext.text = key.ToString().Equals("Return")? "Enter":key.ToString();
             isActive = false;
             enabled = isActive;
             button.interactable = !isActive;
