@@ -7,6 +7,7 @@ public enum ControlKey
     Down,
     Left,
     Right,
+    Attack,
     Interact
 }
 
@@ -15,7 +16,7 @@ public class KeyHolder
 {
     public ControlKey keyName;
     public KeyCode keyBinding;
-    
+
     public KeyHolder(ControlKey keyName, KeyCode keyBinding)
     {
         this.keyName = keyName;
@@ -49,6 +50,7 @@ public class Controls: MonoBehaviour
             conUI.control = item.keyName;
             uISetters.Add(conUI);
         }
+        FlagDublicates();
     }
     public void ResetControls()
     { 
@@ -63,7 +65,7 @@ public class Controls: MonoBehaviour
         {
             item.KeyBoundtext.text = keys[item.control].ToString().Equals("Return") ?
                 "Enter" : keys[item.control].ToString();
-            item.errorMessage.SetActive(false);
+            item.errorMessage.text = "";
         }
 
     } 
@@ -75,7 +77,7 @@ public class Controls: MonoBehaviour
             foreach (var item2 in keys)
             {
                 if (item2.Value==keys[item.control]) i++;
-                item.errorMessage.SetActive(i > 1);
+                item.errorMessage.text= (i > 1)?"This key is already in use!":"";
             }
         }
     }
