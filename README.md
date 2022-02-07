@@ -14,6 +14,8 @@
 <br>UseCase f.e: if(Input.GetKey(Controls.keys[ControlKey.Up])){ print("you're hitting the Up key"); }</br>
 <br>Included some premade prefabs for faster startup</br>
 <br>I put the control handler on top of a scroll view so it keeps it's connections with the UI controls parent, so you should put the scroll view into a canvas</br>
+<br>Keep in mind that I use my scroll content resizer script on the vertical layout group for automatic resize.</br>
+<br>You can find it here: https://github.com/KarsaiTamas/Unity-Scroll-Content-Resizer </br>
 
 
 
